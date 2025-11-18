@@ -30,11 +30,13 @@ public class LoanCalc {
 	private static double endBalance(double loan, double rate, int n, double payment) 
 	{	
 		double pay = 0;
+		double realRate = rate / 100;
+		double interest = 1 + realRate;
 		double money = loan;
 		for (int i = 0 ; i < (n) ; i++) 
 		{
-			pay = (money - payment)*(1+rate);
-			money = pay;
+			money = money - payment;
+			money = money * interest;
 		}
 		return pay;
 	}
@@ -47,7 +49,7 @@ public class LoanCalc {
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		double g = loan/n;
 		iterationCounter = 0;
-		while (endBalance(loan, rate, n, g)>=epsilon)
+		while (endBalance(loan, rate, n, g)> 0)
 		{
 			g += epsilon;
 			iterationCounter++;
@@ -61,26 +63,23 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-		double lo = 0;
+		double lo = loan/n;
 		double hi = loan;
 		double g = (hi + lo)/2; 
-		double finalG = endBalance(loan, rate, n, g); // מה ישאר לי בסוף
-		double finaleL = endBalance(loan, rate, n, lo); // מה היתרה
 		iterationCounter = 0;
-		while ((hi - lo) >= epsilon) // כל עוד הטווח לא שווה לאפסילון אתה מקטין את הטווח כל פעם
+		while ((hi - lo) > epsilon) // כל עוד הטווח לא שווה לאפסילון אתה מקטין את הטווח כל פעם
 		{
-			if ((finalG * finaleL)>0) // אם שניהם בעלי אותו סימן
+			iterationCounter++;
+			double finalG = endBalance(loan, rate, n, g);
+			if ((finalG)>0) // אם שניהם בעלי אותו סימן
 			{
 				lo = g;
-				finaleL = finalG; // בגלל שאל הופך לגי אז ככה עם הפיינל אל
 			}
 			else
 			{
 				hi = g;
 			}
-			 iterationCounter++;
 			 g = (lo + hi) / 2; // מאפס את גי
-			 finalG = endBalance(loan, rate, n, g);
 		}
 
 		return g;
