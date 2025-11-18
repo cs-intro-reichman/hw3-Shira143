@@ -1,3 +1,4 @@
+import java.lang.foreign.FunctionDescriptor;
 import java.util.Random;
 
 /** Functions for checking if a given string is an anagram. */
@@ -32,10 +33,28 @@ public class Anagram {
 	public static boolean isAnagram(String str1, String str2) {
 		String str1NEW = preProcess(str1);
 		String str2New = preProcess(str2);
-		if (str1NEW.equals(str2New))
-		return true;
-		else
+		boolean found = false;
+		if (str1NEW.length() != str2New.length())
 		return false;
+		for (int i = 0; i < str1NEW.length(); i++) 
+		{
+			char charFrom1 = str1NEW.charAt(i);
+			for (int l = 0; l < str2New.length(); l++) 
+			{
+				if (charFrom1 == str2New.charAt(l))
+				{
+					String new2Before = str2New.substring(0,l);
+					String new2After = str2New.substring(l+1);
+					str2New = new2Before + new2After;
+					found = true;
+					break;
+				}
+			}
+		}
+		if (!found)
+		return false;
+
+		return str2New.length() == 0;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
