@@ -89,6 +89,7 @@ public class Anagram {
 			newString += ch;
 			newBefore = newStr.substring(0, random);
 			newAfter = newStr.substring(random+1);
+			newStr = newBefore + newAfter;
 		
 		}
 		return newString;
