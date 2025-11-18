@@ -1,5 +1,4 @@
-import java.lang.foreign.FunctionDescriptor;
-import java.util.Random;
+
 
 /** Functions for checking if a given string is an anagram. */
 public class Anagram {
