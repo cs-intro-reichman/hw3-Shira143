@@ -33,12 +33,13 @@ public class Anagram {
 	public static boolean isAnagram(String str1, String str2) {
 		String str1NEW = preProcess(str1);
 		String str2New = preProcess(str2);
-		boolean found = false;
+		boolean found;
 		if (str1NEW.length() != str2New.length())
 		return false;
 		for (int i = 0; i < str1NEW.length(); i++) 
 		{
 			char charFrom1 = str1NEW.charAt(i);
+			 found = false;
 			for (int l = 0; l < str2New.length(); l++) 
 			{
 				if (charFrom1 == str2New.charAt(l))
@@ -50,9 +51,9 @@ public class Anagram {
 					break;
 				}
 			}
-		}
 		if (!found)
 		return false;
+		}
 
 		return str2New.length() == 0;
 	}
@@ -79,12 +80,16 @@ public class Anagram {
 	public static String randomAnagram(String str) {
 		String newString = "";
 		String newStr = str;
+		String newBefore;
+		String newAfter;
 		while (newStr.length()>0)
 		{
 			int random = (int) (Math.random()*newStr.length());
-			char ch = str.charAt(random);
+			char ch = newStr.charAt(random);
 			newString += ch;
-			newStr = newStr.substring(0, random) + newStr.substring(random+1, str.length());
+			newBefore = newStr.substring(0, random);
+			newAfter = newStr.substring(random+1);
+		
 		}
 		return newString;
 	}
