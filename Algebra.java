@@ -89,49 +89,21 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		int a = x1;
-		if (((x1==0) || (x2==0)) || ((x1==0)&&(x2==0)))
+		int result = 0;
+		if (((x1==0)||(x2==0)))
 		return 0;
-		if (x1>0)
-		{
-			if (x2>0)
-			{
-					for (int i = 1; i < x2; i++) 
-					{
-						x1 += plus(0, a);
-					}
-					return x1;
-			}
-			else if (x2<0)
-			{
-					for (int m = -1; m > x2; m--) 
-					{
-						x1 += plus(0, x1);
-					}
-					return minus(0, a);
-				}
-			}
-		
-			if (x1<0)
-			{
-				if (x2>0)
-				{
-					for (int i = 1; i < x2; i++)
-					 {
-						x1 += minus(0, a);
-					}
-					return x1;
-				}
-				else if (x2<0)
-				{
-					for (int k =-1;k > x2;k--) 
-					{
-						x1 += plus(0, a);
-					}
-					return minus(0, x1);
-				}
-			}
-			return x1;
+		int b = x2;
+		if (x2<0)
+		b = minus(0, x2);
+
+		for (int i = 0; i < b; i++)
+		 {
+			result = plus(result, x1);
+		}
+		if ((x1<0)&& (x2>0) || (x1>0)&& (x2<0))
+		return minus(0, result);		
+			
+		return result;
 	}
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n)
@@ -190,7 +162,7 @@ public class Algebra {
 			{
 				while (sum >= x2)
 				{
-					sum -= x2;
+					sum  = minus(sum, x2);
 					count++;
 				}
 				return count;
@@ -216,20 +188,16 @@ public class Algebra {
 	}	
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
+		int g = 1;
+		int i = 1;
 		if (x<0)
 		return 0;
 		else if ((x == 1) || (x==0))
 		return x;
-		else
+		while (pow(plus(i,1),2) <= x)
 		{
-			for (int i = 0; i < x; i++) 
-		{
-				if (pow(i, 2) == x)
-				{
-					return i;
-				}
+			i++;
 		}
-		}
-		return x; 
+		return i; 
 	}	  	  
 }
