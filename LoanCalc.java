@@ -38,7 +38,7 @@ public class LoanCalc {
 			money = money - payment;
 			money = money * interest;
 		}
-		return pay;
+		return money;
 	}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
